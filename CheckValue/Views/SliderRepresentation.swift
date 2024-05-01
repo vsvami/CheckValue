@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct SliderRepresentation: UIViewRepresentable {
-    
-    @Binding var currentValue: Double
+    @EnvironmentObject private var contentViewVM: ContentViewViewModel
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         slider.minimumValue = 0
         slider.maximumValue = 100
-        slider.value = Float(currentValue)
-        slider.thumbTintColor = UIColor(red: 255, green: 0, blue: 0, alpha: 1)
+        slider.value = Float(contentViewVM.currentValue)
         
         slider.addTarget(
             context.coordinator,
@@ -28,28 +26,34 @@ struct SliderRepresentation: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(currentValue: $currentValue)
+        Coordinator(currentValue: $contentViewVM.currentValue)
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.value = Float(currentValue)
+        updateThumbTintColor(uiView)
+    }
+    
+    private func updateThumbTintColor(_ slider: UISlider) {
+        let alphaValue = CGFloat(Double(contentViewVM.computeScore()) / 100.0)
+        slider.thumbTintColor = UIColor.red.withAlphaComponent(alphaValue)
     }
 }
 
 extension SliderRepresentation {
     final class Coordinator: NSObject {
         @Binding var currentValue: Double
-        
+
         init(currentValue: Binding<Double>) {
             self._currentValue = currentValue
         }
         
         @objc func didMovedSlider(_ sender: UISlider) {
-            currentValue = Double(sender.value).rounded()
+            currentValue = Double(sender.value)
         }
     }
 }
 
 #Preview {
-    SliderRepresentation(currentValue: .constant(50))
+    SliderRepresentation()
+        .environmentObject(ContentViewViewModel())
 }
