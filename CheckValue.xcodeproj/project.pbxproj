@@ -11,6 +11,7 @@
 		64B1C1492BDED69E009F886F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B1C1482BDED69E009F886F /* ContentView.swift */; };
 		64B1C14B2BDED6A0009F886F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64B1C14A2BDED6A0009F886F /* Assets.xcassets */; };
 		64B1C14E2BDED6A0009F886F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64B1C14D2BDED6A0009F886F /* Preview Assets.xcassets */; };
+		64B1C1552BE24610009F886F /* SliderRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B1C1542BE24610009F886F /* SliderRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		64B1C1482BDED69E009F886F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		64B1C14A2BDED6A0009F886F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64B1C14D2BDED6A0009F886F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		64B1C1542BE24610009F886F /* SliderRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				64B1C1462BDED69E009F886F /* CheckValueApp.swift */,
 				64B1C1482BDED69E009F886F /* ContentView.swift */,
+				64B1C1542BE24610009F886F /* SliderRepresentation.swift */,
 				64B1C14A2BDED6A0009F886F /* Assets.xcassets */,
 				64B1C14C2BDED6A0009F886F /* Preview Content */,
 			);
@@ -139,6 +142,7 @@
 			files = (
 				64B1C1492BDED69E009F886F /* ContentView.swift in Sources */,
 				64B1C1472BDED69E009F886F /* CheckValueApp.swift in Sources */,
+				64B1C1552BE24610009F886F /* SliderRepresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
