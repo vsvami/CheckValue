@@ -25,12 +25,12 @@ struct SliderRepresentation: UIViewRepresentable {
         return slider
     }
     
-    func makeCoordinator() -> Coordinator {
-        Coordinator(currentValue: $contentViewVM.currentValue)
-    }
-    
     func updateUIView(_ uiView: UISlider, context: Context) {
         updateThumbTintColor(uiView)
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(currentValue: $contentViewVM.currentValue)
     }
     
     private func updateThumbTintColor(_ slider: UISlider) {
