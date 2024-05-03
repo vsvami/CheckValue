@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct CheckValueApp: App {
-    @StateObject private var checkValueVM = ContentViewViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
-        .environmentObject(checkValueVM)
     }
 }

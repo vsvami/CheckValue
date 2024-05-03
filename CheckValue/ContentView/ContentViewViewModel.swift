@@ -6,22 +6,27 @@
 //
 
 import Foundation
+import Observation
 
+@Observable
 final class ContentViewViewModel: ObservableObject {
-    @Published var targetValue = Int.random(in: 0...100)
-    @Published var currentValue = 50.0
+    var gameOptions = GameOptions()
+    var alertIsPresented = false
     
-    init(targetValue: Int = Int.random(in: 0...100), currentValue: Double = 50.0) {
-        self.targetValue = targetValue
-        self.currentValue = currentValue
+    var scores: Int {
+        100 - abs(gameOptions.targetValue - lround(gameOptions.currentValue))
     }
     
-    func computeScore() -> Int {
-        let difference = abs(targetValue - lround(currentValue))
-        return 100 - difference
+    var alpha: Double {
+        Double(scores) / 100
     }
     
-    func resetValues() {
-        targetValue = Int.random(in: 0...100)
+    func showAlert() {
+        alertIsPresented.toggle()
+    }
+    
+    func reset() {
+        gameOptions.currentValue = Double.random(in: 0...100)
+        gameOptions.targetValue = Int.random(in: 0...100)
     }
 }

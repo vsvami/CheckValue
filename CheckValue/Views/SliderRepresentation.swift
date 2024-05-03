@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct SliderRepresentation: UIViewRepresentable {
-    @EnvironmentObject private var contentViewVM: ContentViewViewModel
+    @Binding var value: Double
+    
+    let alpha: Double
     
     func makeUIView(context: Context) -> UISlider {
-        let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        let slider = UISlider()
         slider.minimumValue = 0
         slider.maximumValue = 100
-        slider.value = Float(contentViewVM.currentValue)
         
         slider.addTarget(
             context.coordinator,
-            action: #selector(Coordinator.didMovedSlider),
+            action: #selector(Coordinator.valueChanged),
             for: .valueChanged
         )
         
@@ -26,34 +27,29 @@ struct SliderRepresentation: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        updateThumbTintColor(uiView)
+        uiView.value = Float(value)
+        uiView.thumbTintColor = .red.withAlphaComponent(alpha)
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(currentValue: $contentViewVM.currentValue)
-    }
-    
-    private func updateThumbTintColor(_ slider: UISlider) {
-        let alphaValue = CGFloat(Double(contentViewVM.computeScore()) / 100.0)
-        slider.thumbTintColor = UIColor.red.withAlphaComponent(alphaValue)
+        Coordinator(value: $value)
     }
 }
 
 extension SliderRepresentation {
     final class Coordinator: NSObject {
-        @Binding var currentValue: Double
+        @Binding var value: Double
 
-        init(currentValue: Binding<Double>) {
-            self._currentValue = currentValue
+        init(value: Binding<Double>) {
+            self._value = value
         }
         
-        @objc func didMovedSlider(_ sender: UISlider) {
-            currentValue = Double(sender.value)
+        @objc func valueChanged(_ sender: UISlider) {
+            value = Double(sender.value)
         }
     }
 }
 
 #Preview {
-    SliderRepresentation()
-        .environmentObject(ContentViewViewModel())
+    SliderRepresentation(value: .constant(50), alpha: 100)
 }

@@ -8,22 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var contentViewVM: ContentViewViewModel
+    @State private var contentViewModel = ContentViewViewModel()
     
     var body: some View {
-        VStack(spacing: 30) {
-            Text("Подвиньте слайдер, как можно ближе к: \(contentViewVM.targetValue)")
-            SliderView().padding()
-            ButtonView()
+        VStack {
+            SliderView(contentViewModel: contentViewModel)
             
-            Button("Начать заново") {
-                contentViewVM.resetValues()
-            }
+            Button("Проверь меня!", action: contentViewModel.showAlert)
+                .padding()
+                .alert(
+                    "Your Score",
+                    isPresented: $contentViewModel.alertIsPresented,
+                    actions: {}
+                ) {
+                    Text(contentViewModel.scores.formatted())
+                }
+            
+            Button("Начать заново", action: contentViewModel.reset)
         }
     }
 }
 
 #Preview {
     ContentView()
-        .environmentObject(ContentViewViewModel())
 }

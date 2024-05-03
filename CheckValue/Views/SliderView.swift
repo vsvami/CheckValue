@@ -8,18 +8,25 @@
 import SwiftUI
 
 struct SliderView: View {
-    @EnvironmentObject private var contentViewVM: ContentViewViewModel
+    @Bindable var contentViewModel: ContentViewViewModel
     
     var body: some View {
-        HStack {
-            Text("0")
-            SliderRepresentation()
-            Text("100")
+        VStack {
+            let targetValue = contentViewModel.gameOptions.targetValue
+            Text("Подвиньте слайдер, как можно ближе к: \(targetValue)")
+            HStack {
+                Text("0")
+                SliderRepresentation(
+                    value: $contentViewModel.gameOptions.currentValue,
+                    alpha: contentViewModel.alpha
+                )
+                Text("100")
+            }
+            .padding()
         }
     }
 }
 
 #Preview {
-    SliderView()
-        .environmentObject(ContentViewViewModel())
+    SliderView(contentViewModel: ContentViewViewModel())
 }
